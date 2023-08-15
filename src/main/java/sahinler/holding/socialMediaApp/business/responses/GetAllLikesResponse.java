@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetAllLikesResponse {
+
 	private int id;
 	private int userId;
 	private int postId;

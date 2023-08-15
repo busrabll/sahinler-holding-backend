@@ -14,7 +14,4 @@ public class CreatePostRequest {
 	private String text;
 	private Date createDate;
 	private int userId;
-	private String userName;
-	private String lastName;
-
 }

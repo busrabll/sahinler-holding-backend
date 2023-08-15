@@ -10,9 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetAllPostsResponse {
+
 	private int id;
 	private String text;
 	private Date createDate;
 	private int userId;
+	private String userName;
 
 }

@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,18 +16,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name="users")
 @Entity
+@Builder
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name="id")
 	private int id;
 	
 	@Column(name="user_name")
 	private String userName;
 	
-	@Column(name="last_name")
-	private String lastName;
+	/*@Column(name="last_name")
+	private String lastName;*/
 	
 	@Column(name="password")
 	private String password;
