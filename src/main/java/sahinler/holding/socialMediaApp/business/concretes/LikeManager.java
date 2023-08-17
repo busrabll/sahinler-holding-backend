@@ -3,45 +3,42 @@ package sahinler.holding.socialMediaApp.business.concretes;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
 import sahinler.holding.socialMediaApp.business.abstracts.LikeService;
 import sahinler.holding.socialMediaApp.business.requests.CreateLikeRequest;
 import sahinler.holding.socialMediaApp.business.responses.GetAllLikesResponse;
-import sahinler.holding.socialMediaApp.core.utilities.mappers.ModelMapperService;
 import sahinler.holding.socialMediaApp.dataAccess.LikeRepository;
 import sahinler.holding.socialMediaApp.model.Like;
 
 @Service
-@AllArgsConstructor
 public class LikeManager implements LikeService {
-	
+
+	@Autowired
 	private LikeRepository likeRepository;
-	private ModelMapperService modelMapperService;
+
+	@Autowired
+	private ModelMapper mapper;
 
 	@Override
 	public List<GetAllLikesResponse> getAll() {
-		
 		List<Like> likes = likeRepository.findAll();
-		
 		List<GetAllLikesResponse> likesResponse = likes.stream()
-				.map(like -> this.modelMapperService.forResponse()
-						.map(like, GetAllLikesResponse.class)).collect(Collectors.toList());
+				.map(like -> mapper.map(like, GetAllLikesResponse.class)).collect(Collectors.toList());
 		return likesResponse;
 	}
 
 	@Override
-	public void add(CreateLikeRequest createLikeRequest) {
-		Like like = this.modelMapperService.forRequest()
-				.map(createLikeRequest, Like.class);
-		
-		this.likeRepository.save(like);
+	public Like add(CreateLikeRequest createLikeRequest) {
+		Like like = mapper.map(createLikeRequest, Like.class);
+
+		return this.likeRepository.save(like);
 	}
 
 	@Override
 	public void delete(int id) {
 		this.likeRepository.deleteById(id);
 	}
-
 }
