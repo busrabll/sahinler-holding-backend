@@ -6,4 +6,6 @@ import sahinler.holding.socialMediaApp.model.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+	User findByUserName(String userName);
+
 }

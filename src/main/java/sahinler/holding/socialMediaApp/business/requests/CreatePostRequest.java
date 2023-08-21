@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreatePostRequest {
 	
+	private int id;
 	private String text;
 	private Date createDate;
 	private int userId;

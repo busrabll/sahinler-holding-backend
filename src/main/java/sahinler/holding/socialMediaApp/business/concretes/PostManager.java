@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import sahinler.holding.socialMediaApp.business.abstracts.PostService;
 import sahinler.holding.socialMediaApp.business.requests.CreatePostRequest;
+import sahinler.holding.socialMediaApp.business.requests.UpdatePostRequest;
 import sahinler.holding.socialMediaApp.business.responses.GetAllPostsResponse;
 import sahinler.holding.socialMediaApp.dataAccess.PostRepository;
 import sahinler.holding.socialMediaApp.model.Post;
@@ -20,15 +21,18 @@ public class PostManager implements PostService {
 	@Autowired
 	private PostRepository postRepository;
 
-	@Autowired
-	private ModelMapper mapper;
+	/*
+	 * @Autowired private ModelMapper mapper;
+	 */
+
+	ModelMapper mapper = new ModelMapper();
 
 	@Override
 	public List<GetAllPostsResponse> getAll() {
 
 		List<Post> posts = postRepository.findAll();
 		List<GetAllPostsResponse> postsResponse = posts.stream()
-				.map(post -> mapper.map(post, GetAllPostsResponse.class)).collect(Collectors.toList());
+				.map(post -> this.mapper.map(post, GetAllPostsResponse.class)).collect(Collectors.toList());
 		return postsResponse;
 
 	}
@@ -36,35 +40,32 @@ public class PostManager implements PostService {
 	@Override
 	public GetAllPostsResponse getPostById(int id) {
 		Optional<Post> post = postRepository.findById(id);
-		GetAllPostsResponse postResponse = mapper.map(post, GetAllPostsResponse.class);
+		GetAllPostsResponse postResponse = this.mapper.map(post, GetAllPostsResponse.class);
 		return postResponse;
 	}
 
 	@Override
 	public Post add(CreatePostRequest createPostRequest) {
-		Post post = mapper.map(createPostRequest, Post.class);
+		
+		mapper.getConfiguration().setAmbiguityIgnored(true);
+		
+		/*mapper.createTypeMap(CreatePostRequest.class, Post.class).addMapping(CreatePostRequest::getId, Post::setId);*/
+		
+		Post post = this.mapper.map(createPostRequest, Post.class);
 
 		return this.postRepository.save(post);
 
 	}
 
 	@Override
+	public Post update(UpdatePostRequest updatePostRequest, int id) {
+		Post post = this.mapper.map(updatePostRequest, Post.class);
+		return this.postRepository.save(post);
+	}
+
+	@Override
 	public void delete(int id) {
 		this.postRepository.deleteById(id);
 	}
-
-	/*
-	 * @Override public Post update(UpdatePostRequest updatePostRequest, int id) {
-	 * Post post = mapper.map(updatePostRequest, Post.class);
-	 * 
-	 * /*if (Objects.nonNull( updatePostRequest.getText()) && !"".equalsIgnoreCase(
-	 * updatePostRequest.getText())) { post.setText( updatePostRequest.getText()); }
-	 * 
-	 * if (Objects.nonNull(updatePostRequest.getCreateDate()) &&
-	 * !"".equalsIgnoreCase(updatePostRequest.getCreateDate())) {
-	 * post.setCreateDate(updatePostRequest.getCreateDate()); }
-	 * 
-	 * return this.postRepository.save(post); }
-	 */
 
 }

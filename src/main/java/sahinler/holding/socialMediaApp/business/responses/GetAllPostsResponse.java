@@ -16,5 +16,5 @@ public class GetAllPostsResponse {
 	private Date createDate;
 	private int userId;
 	private String userName;
-
+	
 }

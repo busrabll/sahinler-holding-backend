@@ -5,14 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class PostConfig {
-
-	/*
-	 * @Bean public PostManager postBean() { return new PostManager(); }
-	 */
-
+public class ModelMapperConfig {
+	
 	@Bean
-	public ModelMapper modelMapperBean() {
+	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
 

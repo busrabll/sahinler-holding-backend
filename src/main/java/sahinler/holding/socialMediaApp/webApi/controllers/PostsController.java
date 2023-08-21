@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sahinler.holding.socialMediaApp.business.abstracts.PostService;
 import sahinler.holding.socialMediaApp.business.requests.CreatePostRequest;
+import sahinler.holding.socialMediaApp.business.requests.UpdatePostRequest;
 import sahinler.holding.socialMediaApp.business.responses.GetAllPostsResponse;
 import sahinler.holding.socialMediaApp.model.Post;
 
@@ -44,12 +46,11 @@ public class PostsController {
 		Post post = this.postService.add(createPostRequest);
 		return ResponseEntity.status(HttpStatus.OK).body(post);
 	}
-
-	/*
-	 * @PutMapping("/{id}") public Post update(@RequestBody UpdatePostRequest
-	 * updatePostRequest,@PathVariable int id) { return
-	 * this.postService.update(updatePostRequest, id); }
-	 */
+	
+	@PutMapping("/{id}")
+	public Post update(@RequestBody UpdatePostRequest updatePostRequest, @PathVariable int id) {
+		return this.postService.update(updatePostRequest, id);		
+	}
 
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable int id) {
