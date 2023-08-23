@@ -20,7 +20,7 @@ public class PostManager implements PostService {
 
 	@Autowired
 	private PostRepository postRepository;
-
+	
 	/*
 	 * @Autowired private ModelMapper mapper;
 	 */
@@ -46,11 +46,14 @@ public class PostManager implements PostService {
 
 	@Override
 	public Post add(CreatePostRequest createPostRequest) {
-		
+
 		mapper.getConfiguration().setAmbiguityIgnored(true);
-		
-		/*mapper.createTypeMap(CreatePostRequest.class, Post.class).addMapping(CreatePostRequest::getId, Post::setId);*/
-		
+
+		/*
+		 * mapper.createTypeMap(CreatePostRequest.class,
+		 * Post.class).addMapping(CreatePostRequest::getId, Post::setId);
+		 */
+
 		Post post = this.mapper.map(createPostRequest, Post.class);
 
 		return this.postRepository.save(post);

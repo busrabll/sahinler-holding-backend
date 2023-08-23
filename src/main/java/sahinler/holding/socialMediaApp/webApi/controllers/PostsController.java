@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import sahinler.holding.socialMediaApp.business.abstracts.PostService;
 import sahinler.holding.socialMediaApp.business.requests.CreatePostRequest;
 import sahinler.holding.socialMediaApp.business.requests.UpdatePostRequest;
@@ -42,7 +43,7 @@ public class PostsController {
 
 	/*@PostMapping*/
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Post> add(@RequestBody CreatePostRequest createPostRequest) {
+	public ResponseEntity<Post> add(@RequestBody @Valid CreatePostRequest createPostRequest) {
 		Post post = this.postService.add(createPostRequest);
 		return ResponseEntity.status(HttpStatus.OK).body(post);
 	}

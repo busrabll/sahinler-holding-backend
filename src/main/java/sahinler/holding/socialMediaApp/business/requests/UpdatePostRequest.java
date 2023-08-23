@@ -14,5 +14,5 @@ public class UpdatePostRequest {
 	private int id;
 	private String text;
 	private Date createDate;
-
+	private int userId;
 }
