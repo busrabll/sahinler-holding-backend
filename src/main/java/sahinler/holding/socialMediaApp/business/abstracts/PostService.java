@@ -11,7 +11,7 @@ public interface PostService {
 
 	List<GetAllPostsResponse> getAll();
 	
-	GetAllPostsResponse getPostById(int id);
+	Post getPostById(int id);
 
 	Post add(CreatePostRequest createPostRequest);
 

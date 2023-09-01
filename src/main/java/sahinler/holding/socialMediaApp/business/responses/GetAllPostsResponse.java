@@ -1,14 +1,12 @@
 package sahinler.holding.socialMediaApp.business.responses;
 
 import java.util.Date;
+import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import sahinler.holding.socialMediaApp.model.Post;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class GetAllPostsResponse {
 
 	private int id;
@@ -17,4 +15,14 @@ public class GetAllPostsResponse {
 	private int userId;
 	private String userName;
 	
+	private List<GetAllLikesResponse> postLikes;
+	
+	public GetAllPostsResponse(Post entity, List<GetAllLikesResponse> likes) {
+		this.id = entity.getId();
+		this.text = entity.getText();
+		this.createDate = entity.getCreateDate();
+		this.userId = entity.getUser().getId();
+		this.userName = entity.getUser().getUserName();
+		this.postLikes = likes;
+	}
 }

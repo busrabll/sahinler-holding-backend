@@ -30,10 +30,10 @@ public class User {
 	@Column(name="password")
 	private String password;
 	
-	//@OneToMany(mappedBy="user")
-	//List<Post> posts;
+	/*@OneToMany(mappedBy="user")
+	List<Post> posts;*/
 	
-	//@OneToMany(mappedBy="user")
-	//List<Like> likes;
+	/*@OneToMany(mappedBy="user")
+	List<Like> likes;*/
 
 }

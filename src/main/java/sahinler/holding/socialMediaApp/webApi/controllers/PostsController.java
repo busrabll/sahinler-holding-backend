@@ -36,8 +36,8 @@ public class PostsController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<GetAllPostsResponse> getPostDetails(@PathVariable("id") int id) {
-		GetAllPostsResponse post = postService.getPostById(id);
+	public ResponseEntity<Post> getPostDetails(@PathVariable("id") int id) {
+		Post post = postService.getPostById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(post);
 	}
 
